@@ -182,6 +182,24 @@ var modulo = function(x, y) {
 // 12. Write a function that multiplies two numbers without using the * operator or
 // Math methods.
 var multiply = function(x, y) {
+
+  var product = 0;
+  if (x === 0 || y === 0) {
+    return product;
+  }
+  if (x < 0 && y < 0) {
+    return product += multiply(-x, -y);
+  }
+  if (x < 0) {
+    return product -= multiply(-x, y);
+  }
+  if (y < 0) {
+    return product -= multiply(x, -y)
+  }
+  if (y > 0) {
+    product += x;
+  }
+  return product += multiply(x, y - 1);
 };
 
 // 13. Write a function that divides two numbers without using the / operator or
@@ -211,12 +229,28 @@ var createArray = function(str) {
 
 // 17. Reverse the order of an array
 var reverseArr = function(array) {
+  var reversed = [];
+  if (array.length <= 0) {
+    return reversed;
+  }
+  reversed.push(array[array.length - 1]);
+  return reversed.concat(reverseArr(array.slice(0, array.length - 1)));
 };
 
 // 18. Create a new array with a given value and length.
 // buildList(0,5) // [0,0,0,0,0]
 // buildList(7,3) // [7,7,7]
 var buildList = function(value, length) {
+
+  var createdList = [];
+
+  if (length <= 0) {
+    return createdList;
+  } else {
+
+    createdList.push(value);
+    return createdList.concat(buildList(value, length - 1));
+  }
 };
 
 // 19. Implement FizzBuzz. Given integer n, return an array of the string representations of 1 to n.
@@ -225,6 +259,25 @@ var buildList = function(value, length) {
 // For numbers which are multiples of both three and five, output “FizzBuzz” instead of the number.
 // fizzBuzz(5) // ['1','2','Fizz','4','Buzz']
 var fizzBuzz = function(n) {
+  var resultArray = [];
+  if (n <= 0) {
+    return resultArray;
+  }
+  if (n % 3 === 0 && n % 5 === 0) {
+    resultArray.push('FizzBuzz');
+    return resultArray.concat(fizzBuzz(n - 1));
+  }
+  if (n % 5 === 0) {
+    resultArray.push('Buzz');
+    return resultArray.concat(fizzBuzz(n - 1));
+  }
+  if (n % 3 === 0) {
+    resultArray.push('Fizz');
+    return resultArray.concat(fizzBuzz(n - 1));
+  }
+  resultArray.push('' + n);
+  return resultArray.concat(fizzBuzz(n - 1));
+  return resultArray;
 };
 
 // 20. Count the occurence of a value in a list.
@@ -282,6 +335,15 @@ var capitalizeWords = function(array) {
 // 28. Given an array of strings, capitalize the first letter of each index.
 // capitalizeFirst(['car','poop','banana']); // ['Car','Poop','Banana']
 var capitalizeFirst = function(array) {
+  var properNouns = [];
+  if (array.length <= 0) {
+    return properNouns;
+  }
+  var word = array[0];
+  var firstLetter = (word[0]).toUpperCase();
+  word = firstLetter + word.slice(1);
+  properNouns.push(word);
+  return properNouns.concat(capitalizeFirst(array.slice(1)))
 };
 
 // 29. Return the sum of all even numbers in an object containing nested objects.
